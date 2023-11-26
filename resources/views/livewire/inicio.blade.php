@@ -1,11 +1,9 @@
 <div>
-    <h1 class="text-4xl font-black">Inicio</h1>
+    <h1 class="text-4xl font-black">{{$nameCategory}}</h1>
     <p class="text-2xl my-10">Elige y personaliza tu pedido a continuación</p>
-    <?php echo(count($productos)) ?>
-    <?php echo($productos) ?>
     <div class="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         @foreach ($productos as $producto)
-            <div class="border p-3 shadow bg-white">
+            <div wire:key="{{ $producto['imagen'] }}" class="border p-3 shadow bg-white">
                 <img src="{{ asset('img/' . $producto['imagen'] . '.jpg') }}"  alt={{'Producto' . $producto['nombre']}} class="w-full"/>
                 <div class='p-5'>
                     <h3 class='text-2xl font-bold'>{{$producto['nombre']}}</h3>

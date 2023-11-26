@@ -5,12 +5,14 @@
     <div class="mt-10">
         @forelse ($categorias as $categoria)
 
-            <div class="flex items-center gap-4 border w-full p-3 hover:bg-amber-400 cursor-pointer">
+            <div wire:key="{{ $categoria['id'] }}"
+                 wire:click="$dispatch('filter-category', { idCategory: {{ $categoria['id']}} })"
+                class="flex items-center gap-4 border w-full p-3 hover:bg-amber-400 cursor-pointer"
+            >
                 <img src="{{ asset('img/icono_' . $categoria['icono'] . '.svg') }}"  alt="Imagen Icono" class="w-12"/>
                 <button
                     class="text-lg font-bold cursor-pointer truncate"
                     type="button"
-                    wire:click="$dispatch('filter-category', { idCategory: {{ $categoria['id']}} })"
                 >
                     {{$categoria['nombre']}}
                 </button>

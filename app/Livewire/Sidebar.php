@@ -8,9 +8,9 @@ use Livewire\Component;
 class Sidebar extends Component
 {
 
-    /*public function filterCategory($categoria)
+    /*public function filterCategory($idCategory)
     {
-        $this->dispatch('filter-category', CurrentCategory: $categoria);
+        $this->dispatch('filter-category', idCategory: $idCategory);
     }*/
 
     public function render()
