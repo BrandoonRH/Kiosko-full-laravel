@@ -6,6 +6,7 @@
     @else
         <p>No hay modal</p>
     @endif
+
     <div class="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         @foreach ($productos as $producto)
             <div wire:key="{{ $producto['imagen'] }}" class="border p-3 shadow bg-white">
@@ -16,7 +17,7 @@
                     <button
                         type='button'
                         class='bg-indigo-600 rounded-md hover:bg-indigo-800 text-white uppercase w-full mt-5 p-3 font-bold '
-                        wire:click="handleModal"
+                        wire:click="$dispatch('openModal', {component: 'modal', arguments: {producto: {{$producto}}  }})"
                     >
                         Agregar
                     </button>
