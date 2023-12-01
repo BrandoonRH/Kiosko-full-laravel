@@ -8,10 +8,15 @@ use Livewire\Component;
 class Sidebar extends Component
 {
 
-    /*public function filterCategory($idCategory)
+    public $currentCategory;
+    public $modal = false;
+
+    public function filterCategory($idCategory)
     {
         $this->dispatch('filter-category', idCategory: $idCategory);
-    }*/
+        $this->currentCategory = $idCategory;
+    }
+
 
     public function render()
     {

@@ -14,7 +14,7 @@ class Inicio extends Component
     public $filterCategoryId;
     public $nameCategory;
     public $productos;
-
+    public $modal = false;
 
     #[On('filter-category')]
     public function filterCategory($idCategory)
@@ -32,6 +32,11 @@ class Inicio extends Component
                 $this->nameCategory = $categoria->nombre;
             }
         }
+    }
+
+    public function handleModal()
+    {
+        $this->modal = !$this->modal;
     }
 
 

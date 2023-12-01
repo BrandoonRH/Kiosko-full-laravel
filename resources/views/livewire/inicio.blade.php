@@ -1,6 +1,11 @@
 <div>
     <h1 class="text-4xl font-black">{{$nameCategory}}</h1>
     <p class="text-2xl my-10">Elige y personaliza tu pedido a continuación</p>
+    @if ($modal)
+        <p>Hay modal</p>
+    @else
+        <p>No hay modal</p>
+    @endif
     <div class="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
         @foreach ($productos as $producto)
             <div wire:key="{{ $producto['imagen'] }}" class="border p-3 shadow bg-white">
@@ -11,6 +16,7 @@
                     <button
                         type='button'
                         class='bg-indigo-600 rounded-md hover:bg-indigo-800 text-white uppercase w-full mt-5 p-3 font-bold '
+                        wire:click="handleModal"
                     >
                         Agregar
                     </button>
