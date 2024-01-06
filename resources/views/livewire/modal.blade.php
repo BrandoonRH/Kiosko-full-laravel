@@ -25,11 +25,14 @@
                 </svg>
             </button>
         </div>
+
         <button
             class="bg-indigo-500 hover:bg-indigo-800 px-5 py-2 mt-5 text-white font-bold uppercase rounded"
-            wire:click="addProduct"
+            wire:click="{{ $edit ? 'editProduct' : 'addProduct' }}"
         >
-            Añadir al Pedido
+            {{ $edit ? 'Editar Producto' : 'Añadir al Pedido' }}
         </button>
+
+
     </div>
 </div>

@@ -2,16 +2,24 @@
 
 namespace App\Livewire;
 
+use Illuminate\Support\Arr;
 use LivewireUI\Modal\ModalComponent;
+use Illuminate\Support\Collection;
+use Livewire\Attributes\Computed;
 
 class Modal extends ModalComponent
 {
     public $producto;
-    public $cantidad = 1;
+    public $cantidad;
+    public $edit = false;
 
-    public static function modalMaxWidth(): string
+
+    public function mount()
     {
-        return '7xl';
+        // Inicializas la cantidad con el valor de 'cantidad' de $producto, o 1 si no está presente
+        $this->cantidad = $this->producto['cantidad'] ?? 1;
+        //dump($this->producto);
+
     }
 
     public function incrementQuantity()
@@ -28,18 +36,26 @@ class Modal extends ModalComponent
         $this->cantidad--;
     }
 
+
+
     public function addProduct()
     {
 
-        $pedido = [
-            'id'=> $this->producto['id'],
+        $productoPedido = [
+            'id' => $this->producto['id'],
             'imagen' => $this->producto['imagen'],
             'nombre' => $this->producto['nombre'],
             'precio' => $this->producto['precio'],
             'cantidad' => $this->cantidad
         ];
+        $this->dispatch('setPedido', pedido: $productoPedido);
+        $this->closeModal();
+    }
 
-        $this->dispatch('setPedido', pedido: $pedido);
+    public function editProduct()
+    {
+       $this->producto['cantidad'] = $this->cantidad;
+        $this->dispatch('editPedido', pedidoEdit: $this->producto);
         $this->closeModal();
     }
 

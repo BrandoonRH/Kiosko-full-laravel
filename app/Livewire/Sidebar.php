@@ -8,7 +8,7 @@ use Livewire\Component;
 class Sidebar extends Component
 {
 
-    public $currentCategory;
+    public $currentCategory = 1;
     public $modal = false;
 
     public function filterCategory($idCategory)
