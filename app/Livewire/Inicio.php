@@ -35,7 +35,9 @@ class Inicio extends Component
 
     public function render()
     {
-        $this->productos = Producto::where('categoria_id', $this->filterCategoryId ?? 1 )->get();
+        $this->productos = Producto::where('categoria_id', $this->filterCategoryId ?? 1)
+        ->where('disponible', 1) // Filtrar por disponibilidad (1 para disponible, 0 para agotado)
+        ->get();
         $this->getCategoryName();
         return view('livewire.inicio');
     }

@@ -2,12 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Models\Pedido;
+use App\Models\PedidoProducto;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Support\Collection;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class Resumen extends Component
 {
@@ -75,7 +77,41 @@ class Resumen extends Component
     }
 
     public function confirmPedido(){
-        dump('Pedido confirmado');
+
+
+        //Almacenar Pedido u Orden
+        $pedido = new Pedido;
+        $pedido->user_id = Auth::user()->id;
+        $pedido->total = $this->total;
+        $pedido->save();
+
+        //Obtener Id del pedido
+        $idPedido = $pedido->id;
+
+        //Obtener los Productos
+        $productos = $this->pedidos->map(function ($producto,) {
+            return [
+                'id' => $producto['id'],
+                'cantidad' => $producto['cantidad']
+            ];
+        });
+
+        //Formatear Arreglo
+        $order_product = [];
+        foreach ($productos as $product) {
+            $order_product[] = [
+                'pedido_id' => $idPedido,
+                'producto_id' => $product['id'],
+                'cantidad' => $product['cantidad'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+        }
+        //Almacenar en la BD
+        PedidoProducto::insert($order_product); //Insert permite ingresar o almacenar un arreglo
+        $this->pedidos = collect();
+        $this->total = 0;
+        $this->dispatch('pedidoConfirmado');
     }
 
 

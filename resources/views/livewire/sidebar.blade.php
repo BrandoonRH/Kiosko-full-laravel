@@ -2,6 +2,18 @@
     <div class="p-4">
         <img class="w-40" src="{{ asset('img/logo.svg') }}" alt="Icono Titulo"/>
     </div>
+    @auth
+        @if (auth()->user()->admin)
+            <div class="my-5 px-5 mx-auto">
+                <a  href="{{ route('dashboard') }}"
+                    wire:navigate
+                    class="text-center block bg-indigo-500 w-full p-3 font-bold text-white hover:bg-indigo-700 rounded-md"
+                >
+                    Panel Administración
+                </a>
+            </div>
+        @endif
+    @endauth
     <div class="mt-10">
         @forelse ($categorias as $categoria)
 

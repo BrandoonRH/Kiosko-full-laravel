@@ -16,16 +16,8 @@
         @livewireStyles
     </head>
     <body class="">
-        <div class="md:flex">
-            @livewire('sidebar')
-            <main  class='flex-1 h-screen overflow-y-scroll bg-gray-100 p-3'>
-               @livewire('inicio')
-                <!-- Scripts  'poner arroba' livewire('inicio') -->
-            </main>
-            @livewire('resumen')
-        </div>
 
-    @livewire('wire-elements-modal')
-    @livewireScripts
+        {{ $slot }}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
 </html>

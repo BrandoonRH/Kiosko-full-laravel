@@ -64,23 +64,33 @@
         Total: $ {{$this->total}}
     </p>
 
-    <div class="w-full mt-5">
-       @if (!$this->isPedido())
-            <button
-            wire:click="confirmPedido"
-            class="bg-indigo-600 hover:bg-indigo-800 text-white rounded-md text-center cursor-pointer w-full py-3 font-bold uppercase px-5"
-        >Confirmar Pedido</button>
-        @else
-        <p class="p-2 bg-amber-400  rounded-md w-full font-extrabold uppercase flex justify-around">Carrito Vacio
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 16.318A4.486 4.486 0 0 0 12.016 15a4.486 4.486 0 0 0-3.198 1.318M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
-            </svg>
+    @auth
+        <div class="w-full mt-5">
+            @if (!$this->isPedido())
+                <button
+                wire:click="confirmPedido"
+                class="bg-indigo-600 hover:bg-indigo-800 text-white rounded-md text-center cursor-pointer w-full py-3 font-bold uppercase px-5"
+            >Confirmar Pedido</button>
+            @else
+            <p class="p-2 bg-amber-400  rounded-md w-full font-extrabold uppercase flex justify-around">Carrito Vacio
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.182 16.318A4.486 4.486 0 0 0 12.016 15a4.486 4.486 0 0 0-3.198 1.318M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75Zm-.375 0h.008v.015h-.008V9.75Z" />
+                </svg>
+            </p>
+            @endif
+        </div>
+    @endauth
+    @guest
+        <p class="p-2 bg-amber-400  rounded-md text-center mt-5 w-full font-extrabold uppercase flex justify-around">
+            Inicia Sesión para poder realizar el Pedido
         </p>
-       @endif
-    </div>
-</aside>
+        <a class="block mt-3  text-center text-gray-600 hover:text-gray-900 hover:underline rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
+            {{ __('Iniciar Sesión') }}
+        </a>
+    @endguest
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</aside>
 <script>
     document.addEventListener('livewire:init', () => {
 
@@ -114,6 +124,15 @@
             Swal.fire({
                 title: 'Producto Eliminado!',
                 text: 'El producto se ha eliminado del carrito!',
+                icon: "success",
+                timer: 1500
+
+            });
+       });
+       Livewire.on('pedidoConfirmado', () => {
+            Swal.fire({
+                title: 'Pedido Confirmado',
+                text: 'Tú pedido se a pasado a cocina!',
                 icon: "success",
                 timer: 1500
 
